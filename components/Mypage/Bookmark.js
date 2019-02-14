@@ -1,26 +1,33 @@
 import React, { Component } from "react";
+import Link from 'next/link';
 
 export default class Bookmark extends Component {
   constructor(props) {
     super(props);
   }
 
+  _clickHandeler_deleteBookmark = () => {
+    this.props._deleteBookmark(this.props.bookmark.id);
+  };
+
   render() {
+    
     return (
       <div id="bookmark_content">
-        
+        <Link href={`/book?book_id=${this.props.bookmark.book.id}`} >
           <div className="image_container">
-            <img className="book_image" src="http://covers.openlibrary.org/b/id/240716.jpg" />
+            <img className="book_image" src={this.props.bookmark.book.image} />
           </div>
-          <div className="book_title">Book_Title</div>
-          <div className="btn_container"> 
-            <button className="delete_btn">삭제</button>
-          </div>
-       
+        </Link>
+        <div className="book_title">{this.props.bookmark.book.title}</div>
+        <div className="btn_container">
+          <button className="delete_btn" onClick={this._clickHandeler_deleteBookmark}>삭제</button>
+        </div>
+
         <style jsx>
           {`
             * {
-              box-shadow: 0px 0px 0px 1px black;
+              box-shadow: 0px 0px 0px 0.1px black;
             }
             #bookmark_content {
               display: flex;

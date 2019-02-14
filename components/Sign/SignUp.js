@@ -1,40 +1,97 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import fetch from 'isomorphic-unfetch';
 
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
-  render () {
+  _clickHandler_signUp = () => {
+    const url = "http://localhost:3000/user/signup";
+
+    const username = document.getElementsByClassName("username")[0].value;
+    const email_front = document.getElementsByClassName("email_front")[0].value;
+    const email_back = document.getElementsByClassName("email_back")[0].value;
+    const password = document.getElementsByClassName("password")[0].value;
+    const confirm_password = document.getElementsByClassName("confirm_password")[0].value;
+
+    const res = fetch(url, {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        email_front,
+        email_back,
+        password,
+        confirm_password
+      })
+    })
+      .then(res => res.json())
+      .then(data => alert(data));
+  };
+
+  render() {
     return (
-      <div id="signUp">
+      <div id="signUp_content">
         <h2>Sign Up</h2>
-        <div className="input_userName">
-          <h3>userName</h3>
-          <input placeholder="username"></input>
+        <div className="input_username">
+          username : <input className="username" placeholder="username" />
+        </div>
+
+        <div className="input_email">
+          email : <input className="email_front" placeholder="email" />
+          @
+          <input className="email_back" placeholder="email" />
+        </div>
+
+        <div className="input_password">
+          password : <input className="password" placeholder="password" />
         </div>
         <div className="input_password">
-          <h3>password</h3>
-          <input placeholder="password"></input>
-          <h3>re-password</h3>
-          <input placeholder="re-password"></input>
+          confirm password :{" "}
+          <input className="confirm_password" placeholder="confirm password" />
         </div>
-        <div className="input_phoneNumber">
-          <h3>phoneNumber</h3>
-          <input placeholder="phoneNumber"></input>
-        </div>
+
         <div className="btn_container">
-          <button>회원가입</button>
+          <button onClick={this._clickHandler_signUp}>회원가입</button>
         </div>
 
         <style jsx>
           {`
             * {
-              box-shadow: 0px 0px 0px 1px black;
+              box-shadow: 0px 0px 0px 0.1px black;
+            }
+            input {
+              font-size: 15px;
+            }
+            #signUp_content {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              width: 450px;
+              margin-left: auto;
+              margin-right: auto;
+              margin-top: 200px;
+            }
+            .password_container {
+              display: flex;
+              flex-direction: column;
+            }
+            .input_username,
+            .input_email,
+            .input_password {
+              width: 100%;
+              content-align: center;
+              font-size: 20px;
+              margin-top: 20px;
+            }
+            .btn_container {
+              margin-top: 20px;
             }
           `}
         </style>
       </div>
-    )
+    );
   }
 }

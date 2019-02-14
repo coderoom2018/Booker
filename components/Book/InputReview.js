@@ -5,26 +5,37 @@ export default class InputReview extends Component {
     super(props);
   }
 
-  _inputNewReview = () => {
-    var newReview = document.getElementsByClassName("input_text")[0].value;
+  _clickHandler_inputNewReview = () => {
+    var text = document.getElementsByClassName("input_text")[0].value;
+    var book_id = this.props.book_id;
+    var user_id = 1;
+    // var user_id = this.props.user_id
 
-    this.props._inputNewReview(newReview);
+    this.props._inputNewReview(text, user_id, book_id);
   };
 
   render() {
+    // console.log("[*] reviews: ", this.props.reviews)
+    console.log("[*] book_id: ", this.props.book_id)
+
     return (
       <div id="content">
         <div>
-          <textarea className="input_text" placeholder="input review" />
+          <textarea className="input_text" placeholder="감상평을 작성 해주세요" />
         </div>
         <div className="button_container">
-          <button className="submit_btn" onClick={this._inputNewReview}>등록</button>
+          <button 
+            className="submit_btn" 
+            onClick={(e) => {
+              if (confirm("등록 하시겠습니까?")) 
+              this._clickHandler_inputNewReview()
+            }}>등록</button>
         </div>
 
         <style jsx>
           {`
             * {
-              box-shadow: 0px 0px 0px 1px black;
+              box-shadow: 0px 0px 0px 0.1px black;
             }
             #content {
               display: flex;

@@ -21,7 +21,7 @@ export default class Sign extends Component {
         <style jsx>
           {`
             * {
-              box-shadow: 0px 0px 0px 1px black;
+              box-shadow: 0px 0px 0px 0.1px black;
             }
           `}
         </style>
