@@ -11,17 +11,26 @@ export default class ReviewContainer extends Component {
 
     return (
       <div id="review_content">
-        <InputReview _inputNewReview={this.props._inputNewReview} />
+        <InputReview 
+          _inputNewReview={this.props._inputNewReview} 
+          reviews={this.props.reviews}
+          book_id={this.props.book_id}
+        />
         <div className="review_container">
           {this.props.reviews.map((review, id) => (
-            <Review review={review} key={id} />
+            <Review 
+              review={review} 
+              key={id} 
+              _deleteReview={this.props._deleteReview}
+              _checkDelete={this.props._checkDelete}
+            />
           ))}
         </div>
 
         <style jsx>
           {`
             * {
-              box-shadow: 0px 0px 0px 1px black;
+              box-shadow: 0px 0px 0px 0.1px black;
             }
             #review_content {
               display: flex;

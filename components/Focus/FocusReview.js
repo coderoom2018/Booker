@@ -1,37 +1,35 @@
 import React, { Component } from "react";
 
-export default class Review extends Component {
+export default class FocusReview extends Component {
   constructor(props) {
     super(props);
   }
 
-  _clickHandler_deleteReview = () => {
-    var user_id = this.props.review.user_id;
-    var book_id = this.props.review.book_id;
+  _clickHandler_editReview = () => {
+    const data = this.props.data[0];
+    const user_id = data.user_id;
+    const book_id = data.book_id;
+    const text = document.getElementsByClassName(book_id)[0].value;
 
-    this.props._deleteReview(user_id, book_id)
+    this.props._editReview(user_id, book_id, text)
   }
 
   render() {
-    console.log("[*] review: ", this.props.review)
+    
+    const data = this.props.data[0];
 
     return (
       <div id="review_content">
+        <h2>FocusReview</h2>
         <div className="reviewText_container">
-          <textarea 
-            className="review_text" 
-            defaultValue={this.props.review.text} 
-            readOnly="readonly"
-          />
+          <textarea className={`${data.book_id} review_text`} defaultValue={data.text} />
         </div>
         <div className="btn_container">
           <button 
-            className="delete_btn" 
-            onClick={ (e) => {
-              if (window.confirm("작성하신 리뷰를 삭제 하시겠습니까?")) 
-                this._clickHandler_deleteReview()
-            }}
-          >삭제 </button>
+            className="edit_btn" 
+            onClick={(e) => {
+              if (confirm("수정된 리뷰를 등록 하시겠습니까?")) this._clickHandler_editReview()
+            } }>수정하기</button>
         </div>
 
         <style jsx>
@@ -51,7 +49,7 @@ export default class Review extends Component {
             }
             .reviewText_container {
               width: 100%;
-              height: 100px;
+              height: 1000px;
               background: white;
               font-size: 20px;
             }
@@ -65,6 +63,9 @@ export default class Review extends Component {
               margin-bottom: 5px;
             }
             .delete_btn {
+              font-size: 20px;
+            }
+            .edit_btn {
               font-size: 20px;
             }
           `}

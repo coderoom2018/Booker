@@ -6,32 +6,29 @@ export default class BookInformation extends Component {
   }
 
   render() {
-    let book = this.props.book[0]
-    let score = 0;
-    
-    // console.log("[*] book: ", this.props.book[0])
+    const data = this.props.data[0]
+
     return (
       <div id="content">
         <div className="bookImg_container">
           <img
             className="bookimage"
-            src="http://covers.openlibrary.org/b/id/240716.jpg"
+            src={data.book.image}
           />
         </div>
 
         <div id="book_information">
-          <div className="book_title">{book.title}</div>
-          <div className="book_publishedAt">{book.publishedAt}</div>
+          <div className="book_title">{data.book.title}</div>
+          <div className="book_publishedAt">{data.book.publishedAt}</div>
           <div className="bookDescription_container">
             <textarea 
-              className="book_description"
-              readOnly="readonly"
-              defaultValue={book.description}
-            />
+              className="book_description" 
+              readonly="readonly" 
+              defaultValue={data.book.description} />
           </div>
           <div className="book_rate">
-            <div>{book.averageScore}</div>
-            <div>{this.props.reviews[0] ? this.props.reviews[0].score : 0}</div>
+            <div>{data.book.averageScore}</div>
+            <div>{data.score ? data.score : 0}</div>
           </div>
         </div>
 

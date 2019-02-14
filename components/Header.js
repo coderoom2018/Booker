@@ -21,16 +21,13 @@ export default () => (
     <div id="navbar">
       
         <div className="navbar_btn">
-          <Link href="/index">Index</Link>
+          <Link href="/index"><a>Books</a></Link>
         </div>
         <div className="navbar_btn">
-          <Link href="/book">Book</Link>
+          <Link href="/mypage"><a>Mypage</a></Link>
         </div>
         <div className="navbar_btn">
-          <Link href="/mypage">Mypage</Link>
-        </div>
-        <div className="navbar_btn">
-          <Link href="/sign">Sign</Link>
+          <Link href="/sign"><a>Sign</a></Link>
         </div>
       
     </div>
@@ -38,7 +35,7 @@ export default () => (
     <style jsx>
       {`
         * {
-          box-shadow: 0px 0px 0px 1px black;
+          box-shadow: 0px 0px 0px 0.1px black;
         }
         #navbar {
           display: flex;
