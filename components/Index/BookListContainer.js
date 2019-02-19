@@ -7,6 +7,8 @@ export default class BookListContainer extends Component {
   }
 
   render() {
+    // console.log('books: ', this.props.books)
+
     return (
       <div id="bookListContainer_content">
         <div id="bookList_container">

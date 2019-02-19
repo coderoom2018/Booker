@@ -3,11 +3,41 @@ import React, { Component } from "react";
 export default class BookInformation extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      myScore: this.props.data[0].score
+    }
+  }
+
+  _clickHandeler_decreaseMyscore = () => {
+    if (this.state.myScore > 0) {
+      this.setState({
+        myScore: this.state.myScore - 1
+      })
+    }
+  }
+
+  _clickHandeler_increaseMyscore = () => {
+    if (this.state.myScore < 10) {
+      this.setState({
+        myScore: this.state.myScore + 1
+      })
+    }
+  }
+
+  _clickHandeler_submitMyscore = () => {
+    const score = this.state.myScore;
+    const user_id = sessionStorage.getItem('user_id')
+    const book_id = this.props.data[0].book_id;
+
+    this.props._editMyScore(score, user_id, book_id)
+    alert("평가점수가 수정되었습니다")
   }
 
   render() {
     const data = this.props.data[0]
-
+    console.log("data: ", data)
+    
     return (
       <div id="content">
         <div className="bookImg_container">
@@ -23,12 +53,22 @@ export default class BookInformation extends Component {
           <div className="bookDescription_container">
             <textarea 
               className="book_description" 
-              readonly="readonly" 
+              readOnly="readonly" 
               defaultValue={data.book.description} />
           </div>
           <div className="book_rate">
-            <div>{data.book.averageScore}</div>
-            <div>{data.score ? data.score : 0}</div>
+            <div>평균점수: {data.book.averageScore}</div>
+            <div>
+              내가 평가한 점수: 
+              <button className="myScore_btn" onClick={this._clickHandeler_decreaseMyscore}>-</button>
+              {data.score ? this.state.myScore : 0}
+              <button className="myScore_btn" onClick={this._clickHandeler_increaseMyscore}>+</button>
+              <button 
+                className="submit_btn" 
+                onClick={(e) => {
+                  if (confirm("평가점수를 변경 하시겠습니까?")) this._clickHandeler_submitMyscore()
+                }}>수정하기</button>
+            </div>
           </div>
         </div>
 

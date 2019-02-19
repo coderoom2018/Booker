@@ -7,7 +7,7 @@ export default class FocusReview extends Component {
 
   _clickHandler_editReview = () => {
     const data = this.props.data[0];
-    const user_id = data.user_id;
+    const user_id = sessionStorage.getItem('user_id');
     const book_id = data.book_id;
     const text = document.getElementsByClassName(book_id)[0].value;
 
@@ -29,7 +29,7 @@ export default class FocusReview extends Component {
             className="edit_btn" 
             onClick={(e) => {
               if (confirm("수정된 리뷰를 등록 하시겠습니까?")) this._clickHandler_editReview()
-            } }>수정하기</button>
+            }}>수정하기</button>
         </div>
 
         <style jsx>

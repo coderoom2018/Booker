@@ -3,6 +3,9 @@ import Head from '../components/Header';
 import BookInformation from '../components/Book/BookInformation';
 import ReviewContainer from '../components/Book/ReviewContainer';
 import fetch from 'isomorphic-unfetch';
+import { inject, observer} from 'mobx-react';
+
+@inject("signInStore")
 
 export default class Book extends Component {
   static async getInitialProps(context) {
@@ -38,10 +41,6 @@ export default class Book extends Component {
       })
   }
 
-  _checkDelete = () => {
-    
-  }
-
   _deleteReview = (user_id, book_id) => {
     const url = "http://localhost:3000/review"
 
@@ -54,6 +53,18 @@ export default class Book extends Component {
       .then(data => this.setState({ data }))
   }
 
+  _editMyScore = (score, user_id, book_id) => {
+    const url = `http://localhost:3000/focus/myscore`;
+
+    const res = fetch(url, {
+      headers: { "Content-Type": "application/json" },
+      method: "PUT",
+      body: JSON.stringify({ score, user_id, book_id })
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ reviews_card: data }))
+  };
+
   render() {
     let book = this.state.data
     let reviews = this.state.data[0].reviews
@@ -65,6 +76,7 @@ export default class Book extends Component {
         <BookInformation 
           book={book} 
           reviews={reviews}
+          _editMyScore={this._editMyScore}
         />
         <ReviewContainer
           reviews={reviews}

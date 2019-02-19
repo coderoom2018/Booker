@@ -16,6 +16,7 @@ export default class ReviewCardContainer extends Component {
             key={id}
             _deleteReviewCard={this.props._deleteReviewCard}
             _editReviewCard={this.props._editReviewCard}
+            _editMyScore={this.props._editMyScore}
           />
         ))}
         <style jsx>

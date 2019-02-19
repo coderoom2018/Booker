@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export default class Index extends Component {
   
-  static async getInitialProps() {
+  static async getInitialProps(context) {
     const res = await fetch('http://localhost:3000/index')
     const data = await res.json()
 
