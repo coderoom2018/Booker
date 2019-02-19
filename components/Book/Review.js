@@ -13,7 +13,6 @@ export default class Review extends Component {
   }
 
   render() {
-    console.log("[*] review: ", this.props.review)
 
     return (
       <div id="review_content">

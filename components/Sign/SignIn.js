@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-unfetch';
 import Link from 'next/link';
+import Router from 'next/router';
+import { inject, observer } from 'mobx-react';
 
+@inject("signInStore")
+
+@observer
 export default class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: [],
-      loginStatus: false
+      signInStatus: this.props.signInStore.signInStatus
     }
   }
 
@@ -30,28 +35,30 @@ export default class SignIn extends Component {
         if (typeof data === "string") {
           alert(data)
         } else {
-          alert("로그인 되었습니다")
-          this.setState({ 
-            user: data,
-            loginStatus: true
-          })
+          alert("로그인 되었습니다");
+          // console.log(data)
+          this.setState({ user: data });
+          this.props.signInStore._changeSignInStatus();
+          this.props.signInStore._saveUserId(data.id);
+          sessionStorage.setItem('user_id', data.id);
+          console.log(sessionStorage.getItem('user_id'))
+          Router.push(`/index?user_id=${data.id}`)
         }
-      });
+    });
+    
+  }
+    
+  _clickHandler_changePageStatus = () => {
+    this.props._changePageStatus()
   }
 
   render () {
-    console.log(this.state.user)
+    console.log("signInStatus: ", this.state.signInStatus)
+    console.log("signed user_id: ", this.props.signInStore.user_id)
 
     return (
       <div id="signIn_content">
         <h2>Sign In</h2>
-        {this.state.loginStatus ? (
-          <div>
-            <Link href={`/index/?id:${this.state.user.id}`}>
-              <button>홈페이지로 이동</button>
-            </Link>
-          </div>
-        ) : (
           <div>
             <div className="input_email">
               email : <input className="email" placeholder="email" />
@@ -62,10 +69,9 @@ export default class SignIn extends Component {
 
             <div className="btn_container">
               <button onClick={this._clickHandler_signIn}>로그인</button>
-              <button>회원가입</button>
+              <button onClick={this._clickHandler_changePageStatus}>회원가입</button>
             </div>
           </div>
-        )}
 
         <style jsx>
           {`

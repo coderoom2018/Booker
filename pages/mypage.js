@@ -3,10 +3,16 @@ import Head from "../components/Header";
 import ReviewCardContainer from "../components/Mypage/ReviewCardContainer";
 import BookmarkContainer from "../components/Mypage/BookmarkContainer";
 import fetch from "isomorphic-unfetch";
+import { inject, observer } from 'mobx-react';
 
+@inject("mypageStore")
+
+@observer
 export default class Mypage extends Component {
-  static async getInitialProps() {
-    const res = await fetch(`http://localhost:3000/mypage?user_id=${1}`);
+  static async getInitialProps(context) {
+    const { user_id } = context.query
+    
+    const res = await fetch(`http://localhost:3000/mypage?user_id=${user_id}`);
     const reviews_card = await res.json();
 
     return { reviews_card };
@@ -51,7 +57,7 @@ export default class Mypage extends Component {
   };
 
   _getBookmarksData = () => {
-    const url = `http://localhost:3000/bookmark?user_id=${1}`;
+    const url = `http://localhost:3000/bookmark?user_id=${sessionStorage.getItem('user_id')}`;
 
     const res = fetch(url, {
       method: "GET"
@@ -88,7 +94,8 @@ export default class Mypage extends Component {
 
   render() {
     let reviews_card = this.state.reviews_card;
-    console.log(reviews_card)
+    const { number, _decrease, _increase } = this.props.mypageStore
+    console.log({ number })
 
     return (
       <div>

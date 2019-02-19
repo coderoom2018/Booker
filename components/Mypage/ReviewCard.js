@@ -23,8 +23,7 @@ export default class ReviewCard extends Component {
   };
 
   render() {
-    console.log("[*] reviewCard book_id: ", this.props.review_card.book_id)
-    
+    console.log("score: ", this.props.review_card.score)    
     return (
       <div id="reviewCard_content">
         <Link href={`/book?book_id=${this.props.review_card.book.id}`}>
@@ -44,10 +43,10 @@ export default class ReviewCard extends Component {
           />
           <div className="book_rate">
             <div>{this.props.review_card.book.averageScore}</div>
-            <div>{this.props.review_card.score}</div>
+            <div className="myScore">{this.props.review_card.score}</div>
           </div>
           <div className="btn_container">
-            <Link href={`/focus?user_id=${1}&book_id=${this.props.review_card.book_id}`}>
+            <Link href={`/focus?user_id=${sessionStorage.getItem('user_id')}&book_id=${this.props.review_card.book_id}`}>
               <button className="focus_btn">
                 수정하러 가기
               </button>

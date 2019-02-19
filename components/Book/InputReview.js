@@ -1,5 +1,9 @@
 import React, { Component } from "react";
+import { inject, observer } from 'mobx-react';
 
+@inject("signInStore")
+
+@observer
 export default class InputReview extends Component {
   constructor(props) {
     super(props);
@@ -8,15 +12,12 @@ export default class InputReview extends Component {
   _clickHandler_inputNewReview = () => {
     var text = document.getElementsByClassName("input_text")[0].value;
     var book_id = this.props.book_id;
-    var user_id = 1;
-    // var user_id = this.props.user_id
+    var user_id = sessionStorage.getItem("user_id")
 
     this.props._inputNewReview(text, user_id, book_id);
   };
 
   render() {
-    // console.log("[*] reviews: ", this.props.reviews)
-    console.log("[*] book_id: ", this.props.book_id)
 
     return (
       <div id="content">

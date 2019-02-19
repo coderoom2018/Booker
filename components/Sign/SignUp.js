@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import fetch from 'isomorphic-unfetch';
+import Router from 'next/router';
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -28,7 +29,8 @@ export default class SignUp extends Component {
       })
     })
       .then(res => res.json())
-      .then(data => alert(data));
+      .then(data => alert(data))
+      .then(Router.push('/'))
   };
 
   render() {

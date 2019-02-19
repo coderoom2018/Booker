@@ -6,7 +6,7 @@ import fetch from 'isomorphic-unfetch';
 
 export default class Focus extends Component {
   static async getInitialProps(context) {
-    const url = `http://localhost:3000/focus?user_id=${1}&book_id=${context.query.book_id}`
+    const url = `http://localhost:3000/focus?user_id=${context.query.user_id}&book_id=${context.query.book_id}`
     const res = await fetch(url);
     const data = await res.json();
 
@@ -32,6 +32,24 @@ export default class Focus extends Component {
       .then(data => this.setState({ data: data.review }));
   };
 
+  _editMyScore = (score, user_id, book_id) => {
+    const url = `http://localhost:3000/focus/myscore`;
+
+    const res = fetch(url, {
+      headers: { "Content-Type": "application/json" },
+      method: "PUT",
+      body: JSON.stringify({ score, user_id, book_id })
+    })
+      .then(res => {
+        // console.log("res: ", res.json())
+        res.json()
+      })
+      .then(data => {
+        // console.log("data: ", data)
+        this.setState({ reviews_card: data });
+      })
+  };
+
   render() {
     // console.log(this.state.data)
     // console.log(this.state.data)
@@ -40,7 +58,10 @@ export default class Focus extends Component {
       <div> 
         <Head />
         <h1>Focus and Edit Page</h1>
-        <BookInformation data={this.state.data} />
+        <BookInformation 
+          data={this.state.data} 
+          _editMyScore={this._editMyScore}
+        />
         <FocusReview 
           data={this.state.data} 
           _editReview={this._editReview}
