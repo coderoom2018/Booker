@@ -36,10 +36,8 @@ export default class Mypage extends Component {
       method: "delete",
       body: JSON.stringify({ id, user_id, book_id })
     })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ reviews_card: data.newReviews });
-      });
+    .then(res => res.json())
+    .then(data => this.setState({ reviews_card: data.newReviews }));
   };
 
   _editReviewCard = (user_id, book_id, text) => {
@@ -50,10 +48,8 @@ export default class Mypage extends Component {
       method: "PUT",
       body: JSON.stringify({ text })
     })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ reviews_card: data.newReviews });
-      });
+    .then(res => res.json())
+    .then(data => this.setState({ reviews_card: data.newReviews }));
   };
 
   _getBookmarksData = () => {
@@ -62,10 +58,8 @@ export default class Mypage extends Component {
     const res = fetch(url, {
       method: "GET"
     })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ bookmarks: data });
-      });
+    .then(res => res.json())
+    .then(data => this.setState({ bookmarks: data }));
   };
 
   _deleteBookmark = id => {
@@ -74,10 +68,8 @@ export default class Mypage extends Component {
     const res = fetch(url, {
       method: "delete"
     })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ bookmarks: data.newBookmarks });
-      });
+    .then(res => res.json())
+    .then(data => this.setState({ bookmarks: data.newBookmarks }));
   };
 
   _clickHandler_changeReviewsTag = () => {
@@ -94,13 +86,13 @@ export default class Mypage extends Component {
 
   render() {
     let reviews_card = this.state.reviews_card;
-    const { number, _decrease, _increase } = this.props.mypageStore
-    console.log({ number })
 
     return (
-      <div>
+      <div id="mypage_content">
         <Head />
-        <h1>Mypage</h1>
+        <div id="pageTitle">
+          <h1>Mypage</h1>
+        </div>
         <div className="tagBtn_container">
           <button
             className="reviewCards_btn"
@@ -135,13 +127,35 @@ export default class Mypage extends Component {
         
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
-            }
             .tagBtn_container {
+              
+            }
+            #mypage_content {
+              background: #262626;
+            }
+            #pageTitle {
+              // background: orange;
+              color: whiteSmoke;
+              font-weight: bold;
             }
             #mainContent {
-              background: whiteSmoke;
+              background: #262626;
+            }
+            .reviewCards_btn,
+            .bookmarks_btn {
+              box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+              background-color: orange;
+              border: 2px solid whitesmoke;
+              color: white;
+              padding: 10px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              font-weight: bold;
+              margin: 4px 2px;
+              cursor: pointer;
+              align: center;
             }
           `}
         </style>

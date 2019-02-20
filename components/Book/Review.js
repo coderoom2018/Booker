@@ -16,6 +16,9 @@ export default class Review extends Component {
 
     return (
       <div id="review_content">
+        <div className="userEmail">
+          작성자: {this.props.review ? this.props.review.user.email : "user"}
+        </div>
         <div className="reviewText_container">
           <textarea 
             className="review_text" 
@@ -27,8 +30,11 @@ export default class Review extends Component {
           <button 
             className="delete_btn" 
             onClick={ (e) => {
-              if (window.confirm("작성하신 리뷰를 삭제 하시겠습니까?")) 
-                this._clickHandler_deleteReview()
+              if (!sessionStorage.getItem("user_id")) {
+                alert("로그인을 해주세요")
+              } else {
+                if (window.confirm("작성하신 리뷰를 삭제 하시겠습니까?")) this._clickHandler_deleteReview()
+              }
             }}
           >삭제 </button>
         </div>
@@ -36,7 +42,10 @@ export default class Review extends Component {
         <style jsx>
           {`
             * {
-              box-shadow: 0px 0px 0px 0.1px black;
+              box-sizing: border-box;
+            }
+            textarea {
+              resize: none;
             }
             #review_content {
               width: 70%;
@@ -47,6 +56,11 @@ export default class Review extends Component {
               margin-right: auto;
               margin-bottom: 10px;
               margin-top: 10px;
+              background: whitesmoke;
+              border: 4px solid orange;
+            }
+            .userEmail {
+              font-size: 15px;
             }
             .reviewText_container {
               width: 100%;
@@ -64,7 +78,20 @@ export default class Review extends Component {
               margin-bottom: 5px;
             }
             .delete_btn {
-              font-size: 20px;
+              box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+              background-color: orange;
+              border: 2px solid orange;
+              color: white;
+              padding: 10px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              font-weight: bold;
+              margin: 4px 2px;
+              cursor: pointer;
+              align: center;
+              width: 100px;
             }
           `}
         </style>

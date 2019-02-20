@@ -28,15 +28,17 @@ export default class SignUp extends Component {
         confirm_password
       })
     })
-      .then(res => res.json())
-      .then(data => alert(data))
-      .then(Router.push('/'))
+    .then(res => res.json())
+    .then(data => alert(data))
+    .then(Router.push('/'))
   };
 
   render() {
     return (
       <div id="signUp_content">
-        <h2>Sign Up</h2>
+        <div id="subTitle">
+          <h2>Sign Up</h2>
+        </div>
         <div className="input_username">
           username : <input className="username" placeholder="username" />
         </div>
@@ -61,9 +63,7 @@ export default class SignUp extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
-            }
+            
             input {
               font-size: 15px;
             }
@@ -75,6 +75,10 @@ export default class SignUp extends Component {
               margin-left: auto;
               margin-right: auto;
               margin-top: 200px;
+              background: whitesmoke;
+              padding: 10px;
+            }
+            #subTitle {
             }
             .password_container {
               display: flex;
@@ -90,6 +94,21 @@ export default class SignUp extends Component {
             }
             .btn_container {
               margin-top: 20px;
+              display: flex;
+            }
+            button {
+              background-color: orange;
+              border: 2px solid orange;
+              color: white;
+              padding: 5px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              font-weight: bold;
+              margin: 2px 2px;
+              cursor: pointer;
+              align: center;
             }
           `}
         </style>

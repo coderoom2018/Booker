@@ -26,16 +26,20 @@ export default class Bookmark extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
-            }
+            // * {
+            //   box-shadow: 0px 0px 0px 0.1px black;
+            // }
             #bookmark_content {
               display: flex;
               flex-direction: column;
               justify-content: center;
               margin-left: 40px;
+              margin-top: 20px;
+              margin-bottom: 20px;
               width: 200px;
               height: 380px;
+              background: whitesmoke;
+              box-shadow: 5px 10px 8px #888888;
             }
             .image_container {
               background: yellow;
@@ -50,9 +54,25 @@ export default class Bookmark extends Component {
               margin-top: 10px;
               font-size: 20px;
             }
+            .btn_container {
+              display: flex;
+              justify-content: center;
+            }
             .delete_btn {
-              font-size: 20px;
-              margin-top: 10px;
+              box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+              background-color: orange;
+              border: 2px solid orange;
+              color: white;
+              padding: 5px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              font-weight: bold;
+              margin: 4px 2px;
+              cursor: pointer;
+              align: center;
+              width: 100px;
             }
           `}
         </style>

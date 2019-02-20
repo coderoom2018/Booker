@@ -9,17 +9,19 @@ import { inject, observer} from 'mobx-react';
 
 export default class Book extends Component {
   static async getInitialProps(context) {
-    const res = await fetch(`http://localhost:3000/book?book_id=${context.query.book_id}`);
+    const res = await fetch(`http://localhost:3000/book?user_id=${context.query.user_id}&book_id=${context.query.book_id}`);
     const data = await res.json();
-    const book_id = context.query.book_id
+    const book_id = context.query.book_id;
+    const user_id = context.query.user_id;
 
-    return { data, book_id }
+    return { data, book_id, user_id }
   }
   constructor(props) {
     super(props);
     this.state = {
       data: this.props.data,
-      book_id: this.props.book_id
+      book_id: this.props.book_id,
+      user_id: this.props.user_id,
     }
   }
 
@@ -31,14 +33,14 @@ export default class Book extends Component {
       method: "POST",
       body: JSON.stringify({ text, user_id, book_id })
     })
-      .then(res => res.json())
-      .then(data => {
-        if (typeof data === "string") {
-          alert(data)
-         } else {
-           this.setState({ data })
-         }
-      })
+    .then(res => res.json())
+    .then(data => {
+      if (typeof data === "string") {
+        alert(data)
+      } else {
+        this.setState({ data })
+      }
+    })
   }
 
   _deleteReview = (user_id, book_id) => {
@@ -49,8 +51,8 @@ export default class Book extends Component {
       method: "DELETE",
       body: JSON.stringify({user_id, book_id})
     })
-      .then(res => res.json())
-      .then(data => this.setState({ data }))
+    .then(res => res.json())
+    .then(data => this.setState({ data }))
   }
 
   _editMyScore = (score, user_id, book_id) => {
@@ -61,8 +63,8 @@ export default class Book extends Component {
       method: "PUT",
       body: JSON.stringify({ score, user_id, book_id })
     })
-      .then(res => res.json())
-      .then(data => this.setState({ reviews_card: data }))
+    .then(res => res.json())
+    .then(data => this.setState({ reviews_card: data }))
   };
 
   render() {
@@ -70,12 +72,15 @@ export default class Book extends Component {
     let reviews = this.state.data[0].reviews
 
     return (
-      <div> 
+      <div id="book_content"> 
         <Head />
-        <h1>Book Page</h1>
+        <div id="pageTitle">
+          <h1>Book Page</h1>
+        </div>
         <BookInformation 
           book={book} 
           reviews={reviews}
+          user_id={this.state.user_id}
           _editMyScore={this._editMyScore}
         />
         <ReviewContainer
@@ -89,8 +94,19 @@ export default class Book extends Component {
         <style jsx>
           {`
             * {
-              box-shadow: 0px 0px 0px 0.1px black;
+              margin: 0;
+              padding: 0;
             }
+
+            #book_content {
+              background: #262626;
+            }
+            #pageTitle {
+              // background: orange;
+              color: whiteSmoke;
+              font-weight: bold;
+            }
+
           `}
         </style>
       </div>

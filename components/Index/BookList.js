@@ -5,13 +5,21 @@ import Link from 'next/link';
 export default class BookList extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      user_id: ''
+    }
+  }
+
+  componentDidMount = () => {
+    this.setState({user_id: sessionStorage.getItem('user_id')})
   }
 
   render() {
 
     return (
       <div id="bookList_content">
-        <Link href={`/book?book_id=${this.props.book.id}`} >
+        <Link href={`/book?user_id=${this.state.user_id}&book_id=${this.props.book.id}`} >
           <a>
             <div className="bookImg_container">
               <img className="book_img" src={this.props.book.image} />
@@ -22,24 +30,30 @@ export default class BookList extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
-            }
+            // * {
+            //   box-shadow: 0px 0px 0px 0.1px black;
+            // }
             #bookList_content {
               // margin-left: 40px;
               margin-top: 40px;
               margin-bottom: 40px;
+              
             }
             .bookImg_container {
               width: 200px;
-              height: 350px;
+              height: 320px;
+              
             }
             .book_img {
               width: 100%;
+              box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2),
+                0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
             .book_title {
               font-size: 20px;
               text-align: center;
+              color: white;
+              opacity: 0.6;
             }
 
           `}
