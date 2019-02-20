@@ -7,7 +7,6 @@ export default class BookListContainer extends Component {
   }
 
   render() {
-    // console.log('books: ', this.props.books)
 
     return (
       <div id="bookListContainer_content">
@@ -19,11 +18,11 @@ export default class BookListContainer extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
-            }
+            // * {
+            //   box-shadow: 0px 0px 0px 0.1px black;
+            // }
             #bookListContainer_content {
-              
+              // background: silver;
             }
             #bookList_container {
               display: flex;
@@ -31,6 +30,7 @@ export default class BookListContainer extends Component {
               justify-content: space-between;
               margin-left: auto;
               margin-right: auto;
+              padding: 20px;
             }
           `}
         </style>

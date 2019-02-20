@@ -28,8 +28,8 @@ export default class Focus extends Component {
       method: "PUT",
       body: JSON.stringify({ text })
     })
-      .then(res => res.json())
-      .then(data => this.setState({ data: data.review }));
+    .then(res => res.json())
+    .then(data => this.setState({ data: data.review }));
   };
 
   _editMyScore = (score, user_id, book_id) => {
@@ -40,24 +40,18 @@ export default class Focus extends Component {
       method: "PUT",
       body: JSON.stringify({ score, user_id, book_id })
     })
-      .then(res => {
-        // console.log("res: ", res.json())
-        res.json()
-      })
-      .then(data => {
-        // console.log("data: ", data)
-        this.setState({ reviews_card: data });
-      })
+    .then(res => res.json())
+    .then(data => this.setState({ reviews_card: data }))
   };
 
   render() {
-    // console.log(this.state.data)
-    // console.log(this.state.data)
 
     return (
-      <div> 
+      <div id="focus_content"> 
         <Head />
-        <h1>Focus and Edit Page</h1>
+        <div id="pageTitle">
+          <h1>Focus and Edit Page</h1>
+        </div>
         <BookInformation 
           data={this.state.data} 
           _editMyScore={this._editMyScore}
@@ -69,8 +63,12 @@ export default class Focus extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
+            #focus_content {
+              background: #262626;
+            }
+            #pageTitle {
+              color: whiteSmoke;
+              font-weight: bold;
             }
           `}
         </style>

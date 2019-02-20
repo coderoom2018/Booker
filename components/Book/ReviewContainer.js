@@ -29,14 +29,14 @@ export default class ReviewContainer extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
-            }
+            // * {
+            //   box-shadow: 0px 0px 0px 0.1px black;
+            // }
             #review_content {
               display: flex;
               flex-direction: column;
               margin-top: 20px;
-              background: whiteSmoke;
+              background: #262626;
             }
             .review_container {
               display: flex;

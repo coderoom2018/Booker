@@ -26,9 +26,11 @@ export default class Sign extends Component {
     console.log('sign Status: ', this.state.pageStatus)
 
     return (
-      <div> 
+      <div id="signIn_content"> 
         <Head />
-        <h1>Sign Page</h1>
+        <div id="pageTitle">
+          <h1>Sign Page</h1>
+        </div>
         <div id="mainContent">
           {this.state.pageStatus === 'signIn' ? (
             <SignIn _changePageStatus={this._changePageStatus} />
@@ -39,8 +41,17 @@ export default class Sign extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
+            // * {
+            //   box-shadow: 0px 0px 0px 0.1px black;
+            // }
+            #signIn_content {
+              background: #262626;
+              
+            }
+            #pageTitle {
+              // background: orange;
+              color: whiteSmoke;
+              font-weight: bold;
             }
           `}
         </style>

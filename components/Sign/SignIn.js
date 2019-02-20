@@ -30,22 +30,19 @@ export default class SignIn extends Component {
         password
       })
     })
-      .then(res => res.json())
-      .then(data => {
-        if (typeof data === "string") {
-          alert(data)
-        } else {
-          alert("로그인 되었습니다");
-          // console.log(data)
-          this.setState({ user: data });
-          this.props.signInStore._changeSignInStatus();
-          this.props.signInStore._saveUserId(data.id);
-          sessionStorage.setItem('user_id', data.id);
-          console.log(sessionStorage.getItem('user_id'))
-          Router.push(`/index?user_id=${data.id}`)
+    .then(res => res.json())
+    .then(data => {
+      if (typeof data === "string") {
+        alert(data)
+      } else {
+        alert("로그인 되었습니다");
+        this.setState({ user: data });
+        this.props.signInStore._changeSignInStatus();
+        this.props.signInStore._saveUserId(data.id);
+        sessionStorage.setItem('user_id', data.id);
+        Router.push(`/index?user_id=${data.id}`)
         }
-    });
-    
+    }); 
   }
     
   _clickHandler_changePageStatus = () => {
@@ -53,8 +50,6 @@ export default class SignIn extends Component {
   }
 
   render () {
-    console.log("signInStatus: ", this.state.signInStatus)
-    console.log("signed user_id: ", this.props.signInStore.user_id)
 
     return (
       <div id="signIn_content">
@@ -75,9 +70,6 @@ export default class SignIn extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 0.1px black;
-            }
             #signIn_content {
               display: flex;
               flex-direction: column;
@@ -86,6 +78,8 @@ export default class SignIn extends Component {
               margin-left: auto;
               margin-right: auto;
               margin-top: 200px;
+              margin-bottom: ;
+              background: whitesmoke;
             }
             input {
               font-size: 15px;
@@ -96,7 +90,23 @@ export default class SignIn extends Component {
               margin-top: 20px;
             }
             .btn_container {
+              display: flex;
+              justify-content: center; 
               margin-top: 20px;
+            }
+            button {
+              background-color: orange;
+              border: 2px solid orange;
+              color: white;
+              padding: 5px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              font-weight: bold;
+              margin: 2px 2px;
+              cursor: pointer;
+              align: center;
             }
           `}
         </style>

@@ -31,6 +31,7 @@ export default class BookmarkContainer extends Component {
               width: 70%;
               margin-left: auto;
               margin-right: auto;
+              background: whitesmoke;
             }
           `}
         </style>

@@ -20,7 +20,9 @@ export default class FocusReview extends Component {
 
     return (
       <div id="review_content">
-        <h2>FocusReview</h2>
+        <div id="subTitle">
+          <h2>내가 작성한 리뷰</h2>
+        </div>
         <div className="reviewText_container">
           <textarea className={`${data.book_id} review_text`} defaultValue={data.text} />
         </div>
@@ -35,7 +37,10 @@ export default class FocusReview extends Component {
         <style jsx>
           {`
             * {
-              box-shadow: 0px 0px 0px 0.1px black;
+              box-sizing: border-box;
+            }
+            textarea {
+              resize: none;
             }
             #review_content {
               width: 70%;
@@ -46,6 +51,10 @@ export default class FocusReview extends Component {
               margin-right: auto;
               margin-bottom: 10px;
               margin-top: 10px;
+            }
+            #subTitle {
+              color: whiteSmoke;
+              font-weight: bold;
             }
             .reviewText_container {
               width: 100%;
@@ -62,11 +71,20 @@ export default class FocusReview extends Component {
               margin-top: 5px;
               margin-bottom: 5px;
             }
-            .delete_btn {
-              font-size: 20px;
-            }
             .edit_btn {
-              font-size: 20px;
+              box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+              background-color: orange;
+              border: 2px solid orange;
+              color: white;
+              padding: 5px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              font-weight: bold;
+              margin: 2px 2px;
+              cursor: pointer;
+              align: center;
             }
           `}
         </style>
