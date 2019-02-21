@@ -45,12 +45,13 @@ export default class Focus extends Component {
   };
 
   render() {
+    console.log('data: ', this.state.data)
 
     return (
       <div id="focus_content"> 
         <Head />
         <div id="pageTitle">
-          <h1>Focus and Edit Page</h1>
+          Focus and Edit Page
         </div>
         <BookInformation 
           data={this.state.data} 
@@ -69,6 +70,17 @@ export default class Focus extends Component {
             #pageTitle {
               color: whiteSmoke;
               font-weight: bold;
+              font-size: 30px;
+              text-align: center;
+              vertical-align: middle;
+              padding: 10px;
+            }
+
+            @media screen and (max-width: 992px) {
+              #pageTitle {
+                font-size: 20px;
+                padding: 5px;
+              }
             }
           `}
         </style>

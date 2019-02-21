@@ -30,30 +30,40 @@ export default class BookList extends Component {
 
         <style jsx>
           {`
-            // * {
-            //   box-shadow: 0px 0px 0px 0.1px black;
-            // }
             #bookList_content {
-              // margin-left: 40px;
               margin-top: 40px;
               margin-bottom: 40px;
-              
             }
             .bookImg_container {
               width: 200px;
               height: 320px;
-              
             }
             .book_img {
-              width: 100%;
-              box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2),
-                0 6px 20px 0 rgba(0, 0, 0, 0.19);
+              width: 100%;  
+            }
+            .book_img:hover {
+              box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
             .book_title {
               font-size: 20px;
               text-align: center;
               color: white;
               opacity: 0.6;
+            }
+
+            @media screen and (max-width: 992px) {
+              #bookList_content {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                margin-right: 5px;
+              }
+              .bookImg_container {
+                width: 130px;
+                height: 200px;
+              }
+              .book_title {
+                font-size: 12px;
+              }
             }
 
           `}

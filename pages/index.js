@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Header from "../components/Header";
 import BookListContainer from "../components/Index/BookListContainer";
 import fetch from 'isomorphic-unfetch';
-import axios from 'axios';
 
 export default class Index extends Component {
   
@@ -21,38 +20,39 @@ export default class Index extends Component {
   }
   
   render() {
-
+    
     return (
       <div id="index_content">
         <Header />
         <div id="pageTitle">
-          <h1>Books Page</h1>
+          Books Page
         </div>
+
         <div id="bookListContainer_container">
           <div className="books_container">
             <div className="subTitle">
-              <h2>Steady Best</h2>
+              Steady Best
             </div>
             <BookListContainer books={this.state.data} />
           </div>
 
           <div className="books_container">
             <div className="subTitle">
-              <h2>Month Best</h2>
+              Month Best
             </div>
             <BookListContainer books={this.state.data} />
           </div>
 
           <div className="books_container">
             <div className="subTitle">
-              <h2>New</h2>
+              New
             </div>
             <BookListContainer books={this.state.data} />
           </div>
 
           <div className="books_container">
             <div className="subTitle">
-              <h2>Recommend</h2>
+              Recommend
             </div>
             <BookListContainer books={this.state.data} />
           </div>
@@ -60,14 +60,13 @@ export default class Index extends Component {
 
         <style jsx>
           {`
-            h2 {
-              color: white;
-              opacity: 0.9;
-            }
             #pageTitle {
-              
               color: whiteSmoke;
               font-weight: bold;
+              font-size: 30px;
+              text-align: center;
+              vertical-align: middle;
+              padding: 10px;
             }
             #index_content {
               background: #262626;
@@ -76,18 +75,32 @@ export default class Index extends Component {
               width: 70%;
               margin-left: auto;
               margin-right: auto;
-
             }
             .books_container {
-              background: #262626;
-              margin-top: 20px;
+              background: #262626; 
             }
             .subTitle {
               background: orange;
-              padding: 2px;
+              font-size: 20px;
+              font-weight: bold;
+              padding: 5px;
+              color: white;
+              opacity: 0.9;
             }
-            
-          
+
+            @media screen and (max-width: 992px) {
+              #pageTitle {
+                font-size: 20px;
+                padding: 5px;
+              }
+              .subTitle {
+                font-size: 15px;
+                padding: 5px;
+              }
+              #bookListContainer_container {
+                width: 100%;  
+              }
+            }
           `}
         </style>
       </div>

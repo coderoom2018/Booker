@@ -41,15 +41,30 @@ export default class Book_Information extends Component {
             }
             .bookDescription_container {
               height: 300px;
-              font-size: 18px;
               margin-bottom: 10px;
             }
             .book_description {
               width: 100%;
               height: 100%;
               font-size: 20px;
-              // background: #262626;
-              // color: whitesmoke;
+            }
+
+            @media only screen and (max-width: 992px) {
+              .book_title {
+                font-size: 30px;
+                padding: 5px;
+                margin_bottom: 0px;
+              }
+              .book_publishedAt {
+                margin-bottom: 5px;
+              }
+              .bookDescription_container {
+                height: 200px;
+                margin-bottom: 5px;
+              }
+              .book_description {
+                font-size: 15px;
+              }
             }
           `}
         </style>

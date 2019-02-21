@@ -10,7 +10,7 @@ export default class Book_Image extends Component {
       <div className="bookImg_container">
         <img
           className="bookimage"
-          src="http://covers.openlibrary.org/b/id/240716.jpg"
+          src={this.props.image}
         />
 
         <style jsx>
@@ -29,8 +29,15 @@ export default class Book_Image extends Component {
             .bookimage {
               display: block;
               width: 100%;
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-                0 6px 20px 0 rgba(0, 0, 0, 0.19);
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            @media screen and (max-width: 992px) {
+              .bookImg_container {
+                width: 200px;
+                height: 300px;
+                margin-right: 3%;
+              }
             }
           `}
         </style>

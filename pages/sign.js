@@ -29,7 +29,7 @@ export default class Sign extends Component {
       <div id="signIn_content"> 
         <Head />
         <div id="pageTitle">
-          <h1>Sign Page</h1>
+          Sign Page
         </div>
         <div id="mainContent">
           {this.state.pageStatus === 'signIn' ? (
@@ -41,17 +41,23 @@ export default class Sign extends Component {
 
         <style jsx>
           {`
-            // * {
-            //   box-shadow: 0px 0px 0px 0.1px black;
-            // }
             #signIn_content {
               background: #262626;
-              
             }
             #pageTitle {
-              // background: orange;
               color: whiteSmoke;
               font-weight: bold;
+              font-size: 30px;
+              text-align: center;
+              vertical-align: middle;
+              padding: 10px;
+            }
+
+            @media screen and (max-width: 992px) {
+              #pageTitle {
+                font-size: 20px;
+                padding: 5px;
+              }
             }
           `}
         </style>

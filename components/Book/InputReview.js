@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { inject, observer } from 'mobx-react';
+import Modal from 'react-responsive-modal';
 
 @inject("signInStore")
 
@@ -7,6 +8,11 @@ import { inject, observer } from 'mobx-react';
 export default class InputReview extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      alertModal: false,
+      confirmModal: false,
+    }
   }
 
   _clickHandler_inputNewReview = () => {
@@ -17,23 +23,56 @@ export default class InputReview extends Component {
     this.props._inputNewReview(text, user_id, book_id);
   };
 
+  _openAlertModal = () => {
+    this.setState({ alertModal: true })
+  }
+
+  _closeAlertModal = () => {
+    this.setState({ alertModal: false})
+  }
+
+  _openConfirmModal = () => {
+    this.setState({ confirmModal: true })
+  }
+
+  _closeConfirmModal = () => {
+    this.setState({ confirmModal: false})
+  }
+
   render() {
 
     return (
       <div id="inputReview_content">
+        <Modal open={this.state.alertModal} onClose={this._closeAlertModal}>
+          <h3>로그인을 해주세요!</h3>
+        </Modal>
+
+        <Modal open={this.state.confirmModal} onClose={this._closeConfirmModal}>
+          <h3>등록 하시겠습니까?</h3>
+          <div className="btn_container">
+            <button 
+              className="btn"
+              onClick={() => {
+                this._clickHandler_inputNewReview()
+                this._closeConfirmModal()
+              }}
+            >등록</button>
+            <button className="btn">취소</button>
+          </div>
+        </Modal>
+
         <div className="inputText_container">
           <textarea className="input_text" placeholder="감상평을 작성 해주세요" />
         </div>
-        <div className="button_container">
+        <div className="btn_container">
           <button 
-            className="submit_btn" 
+            className="btn" 
             onClick={(e) => {
-              if (!sessionStorage.getItem("user_id")) {
-                alert("로그인을 해주세요")
-              } else {
-                if (confirm("등록 하시겠습니까?")) this._clickHandler_inputNewReview()
+              !sessionStorage.getItem("user_id") 
+                ? this._openAlertModal()
+                : this._openConfirmModal()
               }
-            }}>등록</button>
+            }>등록</button>
         </div>
 
         <style jsx>
@@ -64,8 +103,7 @@ export default class InputReview extends Component {
               height: 100px;
               font-size: 20px;
             }
-            .submit_btn {
-              box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            .btn {
               background-color: orange;
               border: 2px solid orange;
               color: white;
@@ -77,8 +115,30 @@ export default class InputReview extends Component {
               font-weight: bold;
               margin: 4px 2px;
               cursor: pointer;
-              float: right;
               width: 100px;
+            }
+            .btn:hover {
+              box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            }
+
+            @media screen and (max-width: 992px) {
+              #inputReview_content {
+                width: 99%;
+                margin-bottom: 5px;
+                margin-top: 5px;
+                border: 2px solid orange;
+              }
+              .input_text {
+                height: 100px;
+                font-size: 15px;
+              }
+              .btn {
+                border: 0.1px solid orange;
+                padding: 2px;
+                font-size: 15px;
+                margin: 2px 2px;
+                width: 80px;
+              }
             }
           `}
         </style>

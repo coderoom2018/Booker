@@ -15,7 +15,7 @@ export default class Mypage extends Component {
     const res = await fetch(`http://localhost:3000/mypage?user_id=${user_id}`);
     const reviews_card = await res.json();
 
-    return { reviews_card };
+    return { reviews_card, user_id };
   }
 
   constructor(props) {
@@ -23,6 +23,7 @@ export default class Mypage extends Component {
 
     this.state = {
       reviews_card: this.props.reviews_card,
+      user_id: this.props.user_id,
       bookmarks: [],
       tagStatus: "reviewCards"
     };
@@ -53,7 +54,7 @@ export default class Mypage extends Component {
   };
 
   _getBookmarksData = () => {
-    const url = `http://localhost:3000/bookmark?user_id=${sessionStorage.getItem('user_id')}`;
+    const url = `http://localhost:3000/bookmark?user_id=${this.state.user_id}`;
 
     const res = fetch(url, {
       method: "GET"
@@ -62,14 +63,22 @@ export default class Mypage extends Component {
     .then(data => this.setState({ bookmarks: data }));
   };
 
-  _deleteBookmark = id => {
-    const url = `http://localhost:3000/bookmark?id=${id}`;
+  _deleteBookmark = book_id => {
+    const url = `http://localhost:3000/bookmark`;
+    const user_id = this.state.user_id;
+   
+    console.log('user_id: ', user_id)
+    console.log("book_id: ", book_id)
 
     const res = fetch(url, {
-      method: "delete"
+      headers: { "Content-Type": "application/json" },
+      method: "DELETE",
+      body: JSON.stringify({ user_id, book_id })
     })
     .then(res => res.json())
-    .then(data => this.setState({ bookmarks: data.newBookmarks }));
+    .then(data => {
+      console.log("data: ",data)
+      this.setState({ bookmarks: data })});
   };
 
   _clickHandler_changeReviewsTag = () => {
@@ -91,7 +100,7 @@ export default class Mypage extends Component {
       <div id="mypage_content">
         <Head />
         <div id="pageTitle">
-          <h1>Mypage</h1>
+          Mypage
         </div>
         <div className="tagBtn_container">
           <button
@@ -134,9 +143,12 @@ export default class Mypage extends Component {
               background: #262626;
             }
             #pageTitle {
-              // background: orange;
               color: whiteSmoke;
               font-weight: bold;
+              font-size: 30px;
+              text-align: center;
+              vertical-align: middle;
+              padding: 10px;
             }
             #mainContent {
               background: #262626;
@@ -156,6 +168,20 @@ export default class Mypage extends Component {
               margin: 4px 2px;
               cursor: pointer;
               align: center;
+            }
+
+            @media screen and (max-width: 992px) {
+              #pageTitle {
+                font-size: 20px;
+                padding: 5px;
+              }
+              .reviewCards_btn,
+              .bookmarks_btn {
+                border: 1px solid whitesmoke;
+                padding: 5px;
+                font-size: 15px;
+                margin: 4px 2px;
+              }
             }
           `}
         </style>
