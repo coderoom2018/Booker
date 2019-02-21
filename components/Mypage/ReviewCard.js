@@ -41,6 +41,7 @@ export default class ReviewCard extends Component {
           />
 
           <ReviewCard_Btn 
+            user_id={this.props.review_card.user_id}
             book_id={this.props.review_card.book_id}
             _clickHandeler_deleteReviewCard={this._clickHandeler_deleteReviewCard}
           />
@@ -68,6 +69,20 @@ export default class ReviewCard extends Component {
               margin-right: 10px;
               margin-left: 20px;
               background: whitesmoke;
+            }
+
+            @media screen and (max-width: 992px) {
+              #reviewCard_content {
+                width: 99%;
+                margin-top: 10px;
+                flex-direction: column;
+                align-items: center;
+              }
+              #book_information {
+                width: 99%;
+                margin-right: 0px;
+                margin-left: 0px;
+              }
             }
           `}
         </style>

@@ -4,6 +4,7 @@ import BookInformation from '../components/Book/BookInformation';
 import ReviewContainer from '../components/Book/ReviewContainer';
 import fetch from 'isomorphic-unfetch';
 import { inject, observer} from 'mobx-react';
+import Modal from 'react-responsive-modal';
 
 @inject("signInStore")
 
@@ -22,6 +23,8 @@ export default class Book extends Component {
       data: this.props.data,
       book_id: this.props.book_id,
       user_id: this.props.user_id,
+      alertModal: false,
+      alertMessage: '',
     }
   }
 
@@ -36,7 +39,7 @@ export default class Book extends Component {
     .then(res => res.json())
     .then(data => {
       if (typeof data === "string") {
-        alert(data)
+        this._openAlertModal(data);
       } else {
         this.setState({ data })
       }
@@ -67,15 +70,31 @@ export default class Book extends Component {
     .then(data => this.setState({ reviews_card: data }))
   };
 
+  _openAlertModal = (alertMessage) => {
+    this.setState({ 
+      alertModal: true, 
+      alertMessage: alertMessage,
+    });
+  }
+
+  _closeAlertModal = () => {
+    this.setState({ alertModal: false });
+  }
+
   render() {
     let book = this.state.data
     let reviews = this.state.data[0].reviews
 
     return (
-      <div id="book_content"> 
+      <div id="book_content">
+        <Modal open={this.state.alertModal} onClose={this._closeAlertModal}>
+          <br />
+          <h3>{this.state.alertMessage}</h3>
+        </Modal>
+
         <Head />
         <div id="pageTitle">
-          <h1>Book Page</h1>
+          Book Page
         </div>
         <BookInformation 
           book={book} 
@@ -97,14 +116,23 @@ export default class Book extends Component {
               margin: 0;
               padding: 0;
             }
-
             #book_content {
               background: #262626;
             }
             #pageTitle {
-              // background: orange;
               color: whiteSmoke;
               font-weight: bold;
+              font-size: 30px;
+              text-align: center;
+              vertical-align: middle;
+              padding: 10px;
+            }
+
+            @media screen and (max-width: 992px) {
+              #pageTitle {
+                font-size: 20px;
+                padding: 5px;
+              }
             }
 
           `}

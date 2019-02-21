@@ -9,7 +9,7 @@ export default class ReviewCard_Image extends Component {
 
   render() {
     return (
-      <div>
+      <div id="image_content">
         <Link href={`/book?book_id=${this.props.book_id}`}>
           <div className="bookImg_container">
             <img className="bookImg" src={this.props.image} />
@@ -27,6 +27,16 @@ export default class ReviewCard_Image extends Component {
             }
             .bookImg {
               width: 100%;
+            }
+
+            @media screen and (max-width: 992px) {
+              #image_content {
+                margin-top: 5px;
+              }
+              .bookImg_container {
+                width: 200px;
+                height: 300px;
+              }
             }
           `}
         </style>

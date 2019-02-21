@@ -17,6 +17,13 @@ export default class ReviewCard_Rate extends Component {
               font-size: 20px;
               margin-top: 10px;
             }
+
+            @media screen and (max-width: 992px) {
+              .book_rate {
+                font-size: 15px;
+                margin-top: 5px;
+              }
+            }
           `}
         </style>
       </div>

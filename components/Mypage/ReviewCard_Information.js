@@ -40,6 +40,22 @@ export default class ReveiwCard_Information extends Component {
               font-size: 20px;
               margin-top: 5px;
             }
+
+            @media screen and (max-width: 992px) {
+              .book_title {
+                font-size: 20px;
+                margin-top: 5px;
+              }
+              .book_createdAt {
+                font-size: 12px;
+                margin-top: 2px;
+              }
+              .book_review {
+                height: 200px;
+                font-size: 15px;
+                margin-top: 2px;
+              }
+            }
           `}
         </style>
       </div>

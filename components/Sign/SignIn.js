@@ -3,6 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import Link from 'next/link';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
+import Modal from 'react-responsive-modal';
 
 @inject("signInStore")
 
@@ -12,9 +13,34 @@ export default class SignIn extends Component {
     super(props);
     this.state = {
       user: [],
-      signInStatus: this.props.signInStore.signInStatus
+      signInStatus: this.props.signInStore.signInStatus,
+      successModal: false,
+      failModal: false,
+      failMessage: ""
     }
   }
+
+  _openSuccessModal = () => {
+    this.setState({ successModal: true });
+  };
+
+  _closeSuccessModal = () => {
+    this.setState({ successModal: false });
+    const user_id = sessionStorage.getItem("user_id")
+
+    Router.push(`/index?user_id=${user_id}`)
+  };
+
+  _openFailModal = (data) => {
+    this.setState({ 
+      failModal: true,
+      failMessage: data,
+    });
+  };
+
+  _closeFailModal = () => {
+    this.setState({ failModal: false });
+  };
 
   _clickHandler_signIn = () => {
     const url = "http://localhost:3000/user/signin";
@@ -33,15 +59,14 @@ export default class SignIn extends Component {
     .then(res => res.json())
     .then(data => {
       if (typeof data === "string") {
-        alert(data)
+        this._openFailModal(data)
       } else {
-        alert("로그인 되었습니다");
+        this._openSuccessModal()
         this.setState({ user: data });
-        this.props.signInStore._changeSignInStatus();
-        this.props.signInStore._saveUserId(data.id);
+        // this.props.signInStore._changeSignInStatus();
+        // this.props.signInStore._saveUserId(data.id);
         sessionStorage.setItem('user_id', data.id);
-        Router.push(`/index?user_id=${data.id}`)
-        }
+      }
     }); 
   }
     
@@ -53,13 +78,23 @@ export default class SignIn extends Component {
 
     return (
       <div id="signIn_content">
-        <h2>Sign In</h2>
+        <div id="subTitle">Sign In</div>
+
+        <Modal open={this.state.successModal} onClose={this._closeSuccessModal} center>
+          <h3>로그인 되었습니다!</h3>
+          <h3>홈페이지로 이동합니다!</h3>
+        </Modal>
+
+        <Modal open={this.state.failModal} onClose={this._closeFailModal} center>
+          <h3>{this.state.failMessage}!</h3>
+        </Modal>
+
           <div>
             <div className="input_email">
               email : <input className="email" placeholder="email" />
             </div>
             <div className="input_password">
-              password : <input className="password" placeholder="password" />
+              password : <input className="password" placeholder="password" type="password"/>
             </div>
 
             <div className="btn_container">
@@ -80,6 +115,14 @@ export default class SignIn extends Component {
               margin-top: 200px;
               margin-bottom: ;
               background: whitesmoke;
+            }
+            #subTitle {
+              color: black;
+              font-weight: bold;
+              font-size: 30px;
+              text-align: center;
+              vertical-align: middle;
+              padding: 10px;
             }
             input {
               font-size: 15px;
@@ -107,6 +150,30 @@ export default class SignIn extends Component {
               margin: 2px 2px;
               cursor: pointer;
               align: center;
+            }
+
+            @media screen and (max-width: 992px) {
+              #signIn_content {
+                width: 300px;
+                margin-top: 100px;
+              }
+              #subTitle {
+                font-size: 20px;
+                padding: 5px;
+              }
+              input {
+                font-size: 12px;
+              }
+              .input_email,
+              .input_password {
+                font-size: 15px;
+                margin-top: 10px;
+              }
+              button {
+                border: 0.1px solid orange;
+                padding: 3px;
+                font-size: 15px;
+              }
             }
           `}
         </style>
