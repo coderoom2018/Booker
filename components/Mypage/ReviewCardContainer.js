@@ -7,16 +7,22 @@ export default class ReviewCardContainer extends Component {
   }
 
   render() {
+
     return (
-      <div>
+      <div id="reviewCard_content">
         {this.props.reviews_card.map((review_card, id) => (
-          <ReviewCard review_card={review_card} key={id}/>
+          <ReviewCard 
+            review_card={review_card} 
+            key={id}
+            user_id={this.props.user_id}
+            _deleteReviewCard={this.props._deleteReviewCard}
+            _editReviewCard={this.props._editReviewCard}
+            _editMyScore={this.props._editMyScore}
+          />
         ))}
         <style jsx>
       {`
-        * {
-          box-shadow: 0px 0px 0px 1px black;
-        }
+      
       `}
     </style>
       </div>

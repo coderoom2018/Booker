@@ -7,8 +7,9 @@ export default class BookListContainer extends Component {
   }
 
   render() {
+
     return (
-      <div>
+      <div id="bookListContainer_content">
         <div id="bookList_container">
           { this.props.books.map((book, id) => (
             <BookList book={book} key={id} />
@@ -17,15 +18,20 @@ export default class BookListContainer extends Component {
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 1px black;
-            }
             #bookList_container {
               display: flex;
               flex-wrap: wrap;
-              justify-content: center;
+              justify-content: space-between;
               margin-left: auto;
               margin-right: auto;
+              padding: 20px;
+            }
+
+            @media screen and (max-width: 992px) {
+              #bookList_container {
+                padding: 0px;
+                width: 80%;
+              }
             }
           `}
         </style>

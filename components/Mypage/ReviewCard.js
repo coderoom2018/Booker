@@ -1,31 +1,56 @@
 import React, { Component } from "react";
+import ReviewCard_Image from "./ReviewCard_Image";
+import ReveiwCard_Information from "./ReviewCard_Information";
+import ReviewCard_Rate from "./ReviewCard_Rate";
+import ReviewCard_Btn from "./ReviewCard_Btn"
 
 export default class ReviewCard extends Component {
   constructor(props) {
     super(props);
   }
 
+  _clickHandeler_deleteReviewCard = () => {
+    const id = this.props.review_card.id;
+    const user_id = this.props.review_card.user_id;
+    const book_id = this.props.review_card.book_id;
+
+    this.props._deleteReviewCard(id, user_id, book_id);
+  };
+
   render() {
+
     return (
       <div id="reviewCard_content">
-        <div className="bookImg_container">
-          <img className="bookImg" src="http://covers.openlibrary.org/b/id/240716.jpg" />
-        </div>
+        <ReviewCard_Image 
+          book_id={this.props.review_card.book.id}
+          image={this.props.review_card.book.image}
+        />
 
+        
         <div id="book_information">
-          <div className="book_title">BOOK_Title</div>
-          <div className="book_createdAt">BOOK_CreatedAt</div>
-          <textarea className="book_review">BOOK_Review</textarea>
-          <div className="book_rate">
-            <div>BOOK_Rate_Average</div>
-            <div>BOOK_Rate_MyRate</div>
-          </div>
+          <ReveiwCard_Information
+            title={this.props.review_card.book.title}
+            createdAt={this.props.review_card.createdAt}
+            book_id={this.props.review_card.book_id}
+            text={this.props.review_card.text}
+          />
+
+          <ReviewCard_Rate 
+            averageScore={this.props.review_card.book.averageScore}
+            score={this.props.review_card.score}
+          />
+
+          <ReviewCard_Btn 
+            user_id={this.props.review_card.user_id}
+            book_id={this.props.review_card.book_id}
+            _clickHandeler_deleteReviewCard={this._clickHandeler_deleteReviewCard}
+          />
         </div>
 
         <style jsx>
           {`
-            * {
-              box-shadow: 0px 0px 0px 1px black;
+            textarea {
+              resize: none;
             }
             #reviewCard_content {
               display: flex;
@@ -33,40 +58,31 @@ export default class ReviewCard extends Component {
               margin-left: auto;
               margin-right: auto;
               margin-top: 20px;
-            }
-            .bookImg_container {
-              width: 250px;
-              margin-left: auto;
-              margin-right: auto;
-            }
-            .bookImg {
-              width: 100%;
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                0 6px 20px 0 rgba(0, 0, 0, 0.19);
+              background: whitesmoke;
             }
             #book_information {
               display: flex;
               flex-direction: column;
               width: 75%;
-              margin-right: auto;
-              margin-left: auto;
+              margin-right: 10px;
+              margin-left: 20px;
+              background: whitesmoke;
             }
-            .book_title {
-              font-size: 30px;
-              text-align: center;
-              margin-top: 10px;
-            }
-            .book_createdAt {
-              font-size: 15px;
-              text-align: right;
-              margin-top: 5px;
-            }
-            .book_review {
-              height: 200px;
-              font-size: 20px;
-              margin-top: 5px;
-            }
-            .book_rate {
-              font-size: 30px;
-              margin-top: 10px;
+
+            @media screen and (max-width: 992px) {
+              #reviewCard_content {
+                width: 99%;
+                margin-top: 10px;
+                flex-direction: column;
+                align-items: center;
+              }
+              #book_information {
+                width: 99%;
+                margin-right: 0px;
+                margin-left: 0px;
+              }
             }
           `}
         </style>
