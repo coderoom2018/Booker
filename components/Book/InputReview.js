@@ -57,7 +57,7 @@ export default class InputReview extends Component {
                 this._closeConfirmModal()
               }}
             >등록</button>
-            <button className="btn">취소</button>
+            <button className="btn" onClick={this._closeConfirmModal}>취소</button>
           </div>
         </Modal>
 

@@ -20,11 +20,17 @@ export default class ReviewCard_Btn extends Component {
 
   render() {
     return (
-      <div className="btn_container">
+      <div id="btn_content">
         <Modal open={this.state.confirmModal} onClose={this._closeConfirmModal}>
           <h3>평가카드를 삭제 하시겠습니까?</h3>
           <div className="btn_container">
-            <button className="btn" onClick={this.props._clickHandeler_deleteReviewCard}>삭제</button>
+            <button 
+              className="btn" 
+              onClick={() => {
+                this.props._clickHandeler_deleteReviewCard()
+                this._closeConfirmModal()
+              }}
+            >삭제</button>
             <button className="btn" onClick={this._closeConfirmModal}>취소</button>
           </div>
         </Modal>
@@ -36,10 +42,14 @@ export default class ReviewCard_Btn extends Component {
 
         <style jsx>
           {`
-            .btn_container {
-              margin-top: 5px;
+            #btn_content {
               margin-left: auto;
               margin-right: 10px;
+            }
+            .btn_container {
+              display: flex;
+              justify-content: center;
+              margin-top: 5px;
               margin-bottom: 5px;
             }
             .btn,
