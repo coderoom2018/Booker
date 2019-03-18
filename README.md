@@ -30,6 +30,6 @@
 
 ## Components Structure
 
-![Alt text](Booker_Components_structure1.jpg)
-![Alt text](Booker_Components_structure2.jpg)
+![Alt text](Booker_Components_structure1-1.jpg)
+![Alt text](Booker_Components_structure1-2.jpg)
 
